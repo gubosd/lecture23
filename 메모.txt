@@ -3,3 +3,16 @@ import mglearn
 mglearn.plots.plot_2d_separator(model, X, fill=True, eps=0.5, alpha=0.4)
 mglearn.discrete_scatter(X[:,0], X[:,1], y)
 plt.legend(loc=4)
+
+################################
+
+from sklearn.tree import export_graphviz
+
+export_graphviz(model, out_file='tree.dot', class_names=cancer.target_names,
+                feature_names=cancer.feature_names[:2], impurity=False, filled=True)
+                
+import graphviz
+
+with open('tree.dot') as f:
+    dot_graph=f.read()
+display(graphviz.Source(dot_graph))
