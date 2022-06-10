@@ -18,6 +18,11 @@ train_score = model.score(X_train, y_train)
 test_score  = model.score(X_test, y_test)
 print(train_score, test_score)
 
+from sklearn.tree import export_graphviz
+
+export_graphviz(model, out_file='tree.dot', class_names=cancer.target_names,
+                feature_names=cancer.feature_names[:2], impurity=False, filled=True)
+
 import graphviz
 
 with open('tree.dot') as f:
