@@ -1,16 +1,23 @@
-import mglearn
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
-mglearn.plots.plot_2d_separator(model, X, fill=True, eps=0.5, alpha=0.4)
-mglearn.discrete_scatter(X[:,0], X[:,1], y)
-plt.legend(loc=4)
+from sklearn.datasets import load_breast_cancer
+cancer = load_breast_cancer()
 
-################################
+from sklearn.model_selection import train_test_split
 
-from sklearn.tree import export_graphviz
+X_train, X_test, y_train, y_test = train_test_split(cancer.data[:, :2], cancer.target)
+X_train.shape, X_test.shape, y_train.shape, y_test.shape
 
-export_graphviz(model, out_file='tree.dot', class_names=cancer.target_names,
-                feature_names=cancer.feature_names[:2], impurity=False, filled=True)
-                
+from sklearn.tree import DecisionTreeClassifier
+
+model = DecisionTreeClassifier()
+model.fit(X_train, y_train)
+train_score = model.score(X_train, y_train)
+test_score  = model.score(X_test, y_test)
+print(train_score, test_score)
+
 import graphviz
 
 with open('tree.dot') as f:
