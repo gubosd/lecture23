@@ -1,0 +1,5 @@
+import mglearn
+
+mglearn.plots.plot_2d_separator(model, X, fill=True, eps=0.5, alpha=0.4)
+mglearn.discrete_scatter(X[:,0], X[:,1], y)
+plt.legend(loc=4)
